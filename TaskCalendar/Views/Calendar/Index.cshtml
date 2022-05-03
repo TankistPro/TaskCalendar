@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Календарь";
+
+    var nowDay = DateTime.Today;
+    int daysInMounth = DateTime.DaysInMonth(nowDay.Day, nowDay.Month);
+    int weeksInMounth = daysInMounth / 7;
+
+    int startDayWeekIndex = (int)new DateTime(nowDay.Year, nowDay.Month, 1).DayOfWeek;
+
+
+    Dictionary<int, List<string>> calendar = new Dictionary<int, List<string>> { };
+    int currentDay = 1;
+
+    for (int i = 1; i <= 5; i++)
+    {
+        calendar.Add(i, new List<string>());
+
+        for (int d = currentDay; d < currentDay + 7; d++)
+        {
+            if (currentDay == 1 && d < startDayWeekIndex)
+            {
+                calendar[i].Add("");
+            }
+            else if (daysInMounth < (d - startDayWeekIndex + 1))
+            {
+                calendar[i].Add((d - daysInMounth - startDayWeekIndex + 1).ToString());
+            }
+            else
+            {
+                calendar[i].Add((d - startDayWeekIndex + 1).ToString());
+            }
+        }
+
+        currentDay = currentDay + 7 <= daysInMounth ? currentDay + 7 : currentDay + 10;
+
+        if (currentDay > daysInMounth)
+        {
+            break;
+        }
+    }
+}
+
+
+<div class="row d-flex justify-content-between mt-4 mb-3">
+    <p class="font-weight-bold" style="font-size: 1.5rem">18 апреля 2021</p>
+    <div>
+        <button class="btn btn-secondary" >Пред.</button>
+        <button class="btn btn-primary">След.</button>
+    </div>
+</div>
+
+<div class="row">
+    <table class="table table-bordered calendar-table">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col">Понедельник</th>
+                <th scope="col">Вторник</th>
+                <th scope="col">Среда</th>
+                <th scope="col">Четверг</th>
+                <th scope="col">Пятница</th>
+                <th scope="col">Суббота</th>
+                <th scope="col">Воскресенье</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int w = 1; w < calendar.Count + 1; w++)
+            {
+            <tr>
+                @for (int d = 0; d < calendar[w].Count; d++)
+                {
+                    <th>@calendar[w][d]</th>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+</script>
+

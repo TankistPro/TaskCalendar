@@ -1,0 +1,89 @@
+﻿@model IEnumerable<TaskCalendar.Models.Task>
+
+@{
+    ViewBag.Title = "Task Calendare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions
+{
+    public string taskStatus(int statusValue)
+    {
+        string status;
+
+        switch (statusValue)
+        {
+            case 0:
+                status = "Новый";
+                break;
+            case 1:
+                status = "Активынй";
+                break;
+            case 2:
+                status = "Готова";
+                break;
+            case 3:
+                status = "Готова к Deploy";
+                break;
+            default:
+                status = "Новый";
+                break;
+        }
+
+        return status;
+    }
+}
+
+<div class="modal fade" role="dialog"></div>
+<div class="row mt-4" style="row-gap: 20px;">
+    @if(Model.Count() == 0)
+    {
+    <p class="w-100 text-center text-uppercase font-weight-bold"
+       style="height: calc(90vh - 100px); display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+        &#128556; Задачи отсутствуют &#128532;
+    </p>
+    }
+    else
+    {
+        foreach (TaskCalendar.Models.Task task in Model)
+        {
+            <div class="card w-100">
+                <div class="card-header d-flex justify-content-between">
+                    <p class="text-uppercase font-weight-bold m-0">@task.Title</p>
+                    <p class="m-0">Дата создания: @task.CreatedAt</p>
+                    @Html.ActionLink("Удалить", "DeleteModal", new { id = @task.Id }, new { @class = "viewDialog" })
+                    @*@Ajax.ActionLink("Удалить", "DeleteTask", new { id = @task.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "close" })*@
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>@task.Description</p>
+                        <footer class="blockquote-footer">Статус задачи: @taskStatus(@task.Status)</footer>
+                    </blockquote>
+                </div>
+                @*<div class="form-group pl-4 pr-4">
+                    <label for="exampleFormControlSelect1">Изменить статус</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        @foreach (var index in ViewBag.TaskIndexList)
+                        {
+                            <option>@taskStatus(index)</option>
+                        }
+                    </select>
+                </div>*@
+            </div>
+        }
+    }
+</div>
+
+<script>
+    $.ajaxSetup({ cache: false });
+
+    $(".viewDialog").click(function (e) {
+
+        e.preventDefault();
+        $("body").addClass("modal-open");
+        $.get(this.href, function (data) {
+            $('.modal').html(data);
+            $('.modal').modal('show');
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+﻿@model TaskCalendar.Models.Task
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Удаление записи</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Вы действительно хотите удалить запись <b>"@Html.DisplayFor(model => model.Title)"</b>?</p>
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm("DeleteTask", "Home"))
+            {
+                @Html.Hidden("id", Model.Id)
+
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            }
+            @*@Ajax.ActionLink("Удалить", "DeleteTask", new { id = Model.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn btn-danger" })*@
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        </div>
+    </div>
+</div>

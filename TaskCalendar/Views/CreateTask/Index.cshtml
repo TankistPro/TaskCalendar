@@ -1,0 +1,56 @@
+﻿@model TaskCalendar.Models.Task
+
+@{
+    ViewBag.Title = "Создание задачи";
+
+    List<SelectListItem> taskStatusIndexList = new List<SelectListItem>() {
+        new SelectListItem {Value = "0", Text = "Новая", Selected = true},
+        new SelectListItem {Value = "1", Text = "Активная"},
+        new SelectListItem {Value = "2", Text = "Готова"},
+        new SelectListItem {Value = "3", Text = "Готовая к deploy"}
+    };
+}
+
+<div class="mt-4">
+    @using (Html.BeginForm("Index", "CreateTask", FormMethod.Post, new { @class = "create-task" }))
+    {
+        <div class="form-group">
+            <label for="exampleInputEmail1">Название идеи</label>
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @id = "exampleInputEmail1", @placeholder = "Назание" } })
+            <small id="emailHelp" class="form-text">*Поле обязательное для заполнения</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Описание</label>
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @id = "exampleFormControlTextarea1", @rows = "3" })
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Статус задачи</label>
+            @Html.DropDownListFor(model => model.Status, taskStatusIndexList, new { @class= "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="validateForm">Создать</button>
+        <button type="button" class="btn btn-secondary">Очистить</button>
+    }
+</div>
+
+<script>
+    function validateForm(event) {
+        const titleValue = $('#exampleInputEmail1').val()
+
+        if (!titleValue || !titleValue.length) {
+            event.preventDefault();
+
+            $('#exampleInputEmail1').addClass("is-invalid");
+            $("#emailHelp").css("color", "red");
+            return;
+        }
+    }
+
+    $(".create-task").submit(validateForm);
+
+    $("button[type='button']").click(() => {
+        $(".create-task").trigger("reset");
+
+        $("#emailHelp").css("color", "inherit");
+        $('#exampleInputEmail1').removeClass("is-invalid");
+    })
+</script>
