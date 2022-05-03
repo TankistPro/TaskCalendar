@@ -200,6 +200,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -310,7 +311,6 @@
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Shared\TopHeader.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
