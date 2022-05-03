@@ -40,44 +40,45 @@
     }
 }
 
-
-<div class="row d-flex justify-content-between mt-4 mb-3">
-    <p class="font-weight-bold" style="font-size: 1.5rem">18 апреля 2021</p>
-    <div>
-        <button class="btn btn-secondary" >Пред.</button>
-        <button class="btn btn-primary">След.</button>
+@section Body {
+    <div class="row d-flex justify-content-between mt-4 mb-3">
+        <p class="font-weight-bold" style="font-size: 1.5rem">18 апреля 2021</p>
+        <div>
+            <button class="btn btn-secondary">Пред.</button>
+            <button class="btn btn-primary">След.</button>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <table class="table table-bordered calendar-table">
-        <thead>
-            <tr class="table-primary">
-                <th scope="col">Понедельник</th>
-                <th scope="col">Вторник</th>
-                <th scope="col">Среда</th>
-                <th scope="col">Четверг</th>
-                <th scope="col">Пятница</th>
-                <th scope="col">Суббота</th>
-                <th scope="col">Воскресенье</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row">
+        <table class="table table-bordered calendar-table">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">Понедельник</th>
+                    <th scope="col">Вторник</th>
+                    <th scope="col">Среда</th>
+                    <th scope="col">Четверг</th>
+                    <th scope="col">Пятница</th>
+                    <th scope="col">Суббота</th>
+                    <th scope="col">Воскресенье</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            @for (int w = 1; w < calendar.Count + 1; w++)
-            {
-            <tr>
-                @for (int d = 0; d < calendar[w].Count; d++)
+                @for (int w = 1; w < calendar.Count + 1; w++)
                 {
-                    <th>@calendar[w][d]</th>
+                    <tr>
+                        @for (int d = 0; d < calendar[w].Count; d++)
+                        {
+                            <th>@calendar[w][d]</th>
+                        }
+                    </tr>
                 }
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
-<script>
+    <script>
 
-</script>
+    </script>
+}
 

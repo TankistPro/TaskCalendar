@@ -308,6 +308,7 @@
     <Content Include="Views\CreateTask\Index.cshtml" />
     <Content Include="Views\Home\_DeleteModal.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Shared\TopHeader.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

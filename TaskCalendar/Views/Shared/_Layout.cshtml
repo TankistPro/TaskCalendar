@@ -20,8 +20,8 @@
         <nav class="navbar navbar-dark bg-dark">
             @Html.RouteLink("Task_Сalendare", new { controller = "Home", action = "Index" }, new { @class = "navbar-brand text-white" })
             <div class="navbar-nav flex-row" style="column-gap: 20px;">
-                @Html.RouteLink("Главная", new { controller = "Home", action = "Index"}, new { @class="nav-item nav-link" })
-                @Html.RouteLink("Создать", new { controller = "CreateTask", action = "Index" }, new { @class="nav-item nav-link" })
+                @Html.RouteLink("Главная", new { controller = "Home", action = "Index" }, new { @class = "nav-item nav-link" })
+                @Html.RouteLink("Создать", new { controller = "CreateTask", action = "Index" }, new { @class = "nav-item nav-link" })
                 @Html.RouteLink("Календарь", new { controller = "Calendar", action = "Index" }, new { @class = "nav-item nav-link" })
             </div>
             <form class="form-inline">
@@ -32,7 +32,7 @@
     </header>
 
     <div class="container body-content">
-        @RenderBody()
+        @RenderSection("Body")
     </div>
 
     @Scripts.Render("~/bundles/jquery")
