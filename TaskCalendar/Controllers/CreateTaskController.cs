@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TaskCalendar.Models;
+
+using TaskCalendar.Domain.Core;
+using TaskCalendar.Infrastructure.Data.Repository;
+using TaskCalendar.Infrastructure.Data.Context;
 
 namespace TaskCalendar.Controllers
 {
     public class CreateTaskController : Controller
     {
-        TaskContext db = new TaskContext();
+        /*TaskContext db = new TaskContext();*/
+
+        private TaskRepository _taskRepository = new TaskRepository(new DataBaseContext());
         
         [HttpGet]
         public ActionResult Index()
@@ -20,25 +25,14 @@ namespace TaskCalendar.Controllers
         [HttpPost]
         public ActionResult Index(Task entity)
         {
+            bool result = _taskRepository.CreateTask(entity);
 
-            if (entity == null || string.IsNullOrEmpty(entity.Title))
+            if (result)
             {
-                return View();
-            }
-
-            entity.CreatedAt = DateTime.Now;
-            
-            try
-            {
-                db.Tasks.Add(entity);
-                db.SaveChanges();
-
                 return Redirect("/Home");
             }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(400);
-            }
+
+            return new HttpStatusCodeResult(400);
         }
     }
 }

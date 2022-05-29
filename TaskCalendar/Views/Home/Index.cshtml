@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TaskCalendar.Models.Task>
+﻿@model IEnumerable<TaskCalendar.Domain.Core.Task>
 
 @{
     ViewBag.Title = "Task Calendare";
@@ -46,7 +46,7 @@
         }
         else
         {
-            foreach (TaskCalendar.Models.Task task in Model)
+            foreach (TaskCalendar.Domain.Core.Task task in Model)
             {
                 <div class="card w-100">
                     <div class="card-header d-flex justify-content-between">

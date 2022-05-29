@@ -4,23 +4,36 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Globalization;
-using TaskCalendar.Models;
+/*using TaskCalendar.Models;*/
+
+using TaskCalendar.Domain.Core;
+using TaskCalendar.Domain.Interfaces;
+using TaskCalendar.Infrastructure.Data.Context;
+using TaskCalendar.Infrastructure.Data.Repository;
 
 namespace TaskCalendar.Controllers
 {
     public class HomeController : Controller
     {
-        TaskContext db = new TaskContext();
+        /*TaskContext db = new TaskContext();*/
+
+        private TaskRepository _taskRepository = new TaskRepository(new DataBaseContext());
+
+
+        /*public HomeController(ITaskRepository taskRepository)
+        {
+            _taskRepository = taskRepository;
+        }*/
 
         [HttpGet]
         public ActionResult Index()
         {
             ViewBag.TaskIndexList = new List<int>() { 0, 1, 2, 3, 4 };
 
-            return View(db.Tasks);
+            return View(_taskRepository.GetTaskList());
         }
 
-        public ActionResult DeleteModal(int id)
+        /*public ActionResult DeleteModal(int id)
         {
             var task = db.Tasks.Find(id);
 
@@ -50,6 +63,6 @@ namespace TaskCalendar.Controllers
             }
 
             return Redirect("/");
-        }
+        }*/
     }
 }

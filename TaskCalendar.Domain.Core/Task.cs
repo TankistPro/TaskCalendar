@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace TaskCalendar.Models
+namespace TaskCalendar.Domain.Core
 {
     public class Task
     {
@@ -10,6 +9,7 @@ namespace TaskCalendar.Models
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
+        [Required]
         public int Status { get; set; }
         public DateTime CreatedAt { get; set; }
     }
