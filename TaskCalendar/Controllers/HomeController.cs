@@ -47,14 +47,14 @@ namespace TaskCalendar.Controllers
 
             bool status = _taskRepository.Remove(task);
 
-            if (status)
+            /*if (status)
             {
                 ViewBag.DeleteStatus = "Запись успешно удалена";
             }
             else
             {
                 ViewBag.DeleteStatus = "Не удалось удалить запись";
-            }
+            }*/
 
             return Redirect("/");
         }
