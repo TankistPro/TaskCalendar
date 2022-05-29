@@ -4,10 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Globalization;
-/*using TaskCalendar.Models;*/
 
 using TaskCalendar.Domain.Core;
-using TaskCalendar.Domain.Interfaces;
 using TaskCalendar.Infrastructure.Data.Context;
 using TaskCalendar.Infrastructure.Data.Repository;
 
@@ -15,15 +13,7 @@ namespace TaskCalendar.Controllers
 {
     public class HomeController : Controller
     {
-        /*TaskContext db = new TaskContext();*/
-
         private TaskRepository _taskRepository = new TaskRepository(new DataBaseContext());
-
-
-        /*public HomeController(ITaskRepository taskRepository)
-        {
-            _taskRepository = taskRepository;
-        }*/
 
         [HttpGet]
         public ActionResult Index()
@@ -33,9 +23,14 @@ namespace TaskCalendar.Controllers
             return View(_taskRepository.GetTaskList());
         }
 
-        /*public ActionResult DeleteModal(int id)
+        public ActionResult DeleteModal(int id)
         {
-            var task = db.Tasks.Find(id);
+            Task task = _taskRepository.Find(id);
+
+            if (task == null)
+            {
+                return new HttpStatusCodeResult(400);
+            }
 
             return PartialView("_DeleteModal", task);
         }
@@ -43,26 +38,25 @@ namespace TaskCalendar.Controllers
         [HttpPost]
         public ActionResult DeleteTask(int id)
         {
-            Task task = db.Tasks.Find(id);
+            Task task = _taskRepository.Find(id);
 
             if (task == null)
             {
                 return new HttpStatusCodeResult(400);
             }
 
-            try
-            {
-                db.Tasks.Remove(task);
-                db.SaveChanges();
+            bool status = _taskRepository.Remove(task);
 
-                ViewBag.DeleteStaus = "Запись успешно удалена";
-            }
-            catch (Exception ex)
+            if (status)
             {
-                ViewBag.DeleteStaus = "Не удалось удалить запись";
+                ViewBag.DeleteStatus = "Запись успешно удалена";
+            }
+            else
+            {
+                ViewBag.DeleteStatus = "Не удалось удалить запись";
             }
 
             return Redirect("/");
-        }*/
+        }
     }
 }

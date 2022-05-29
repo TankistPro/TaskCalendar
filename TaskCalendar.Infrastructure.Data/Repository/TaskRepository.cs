@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using TaskCalendar.Domain.Core;
 using TaskCalendar.Domain.Interfaces;
 using TaskCalendar.Infrastructure.Data.Context;
-using Microsoft.EntityFrameworkCore;
+
 namespace TaskCalendar.Infrastructure.Data.Repository
 {
     public class TaskRepository : ITaskRepository
@@ -62,6 +63,26 @@ namespace TaskCalendar.Infrastructure.Data.Repository
         public IEnumerable<Task> GetTaskList()
         {
             return _db.Tasks;
+        }
+
+        public Task Find(int id)
+        {
+            return _db.Tasks.Find(id);
+        }
+
+        public bool Remove(Task entity)
+        {
+            try
+            {
+                _db.Tasks.Remove(entity);
+                _db.SaveChanges();
+
+                return true;
+            } 
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

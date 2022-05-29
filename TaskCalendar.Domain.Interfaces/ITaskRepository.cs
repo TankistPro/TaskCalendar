@@ -9,5 +9,7 @@ namespace TaskCalendar.Domain.Interfaces
         IEnumerable<Task> GetTaskList();
         bool CreateTask(Task entity);
         bool DeleteTask(int id);
+        Task Find(int id);
+        bool Remove(Task entity);
     }
 }
