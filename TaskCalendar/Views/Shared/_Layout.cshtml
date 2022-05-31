@@ -24,10 +24,11 @@
                 @Html.RouteLink("Создать", new { controller = "CreateTask", action = "Index" }, new { @class = "nav-item nav-link" })
                 @Html.RouteLink("Календарь", new { controller = "Calendar", action = "Index" }, new { @class = "nav-item nav-link" })
             </div>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search">
+            @using (Ajax.BeginForm("TaskSearch", "Home", new AjaxOptions { UpdateTargetId = "result" }, new { @class = "form-inline" }))
+            {
+                <input class="form-control mr-sm-2" name="title" type="search" placeholder="Поиск" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
-            </form>
+            }
         </nav>
     </header>
 

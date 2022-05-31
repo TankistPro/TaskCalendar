@@ -13,7 +13,13 @@ namespace TaskCalendar.Controllers
 {
     public class HomeController : Controller
     {
-        private TaskRepository _taskRepository = new TaskRepository(new DataBaseContext());
+        private DataBaseContext _dbContext = new DataBaseContext();
+        private TaskRepository _taskRepository;
+
+        public HomeController()
+        {
+            _taskRepository = new TaskRepository(_dbContext);
+        }
 
         [HttpGet]
         public ActionResult Index()
@@ -33,6 +39,13 @@ namespace TaskCalendar.Controllers
             }
 
             return PartialView("_DeleteModal", task);
+        }
+
+        [HttpPost]
+        public ActionResult TaskSearch(string title)
+        {
+            var tasks = _taskRepository.SearchTask(title);
+            return View("~/Views/Home/Index.cshtml", tasks);
         }
 
         [HttpPost]
